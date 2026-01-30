@@ -34,6 +34,7 @@ The following phases are **fully implemented**:
 - **Phase 5:** Backend API - Admin (Auth, CRUD operations, middleware)
 - **Phase 6:** Frontend Foundation (Vite, React, Tailwind, Routing, API client)
 - **Phase 7:** Frontend Home Page (Layout, Theme, QuoteCard, Voting, Share)
+- **Phase 8:** Frontend Quote List (List view, Filters, Pagination, Dynamic episode filter)
 - **Phase 9:** Frontend Admin (Login, Dashboard, CRUD UI)
 - **Phase 10:** Accessibility (Keyboard nav, ARIA, Skip links, Focus indicators)
 - **Phase 11:** SEO & Meta (Meta tags, JSON-LD, robots.txt, sitemap, favicon)
@@ -44,14 +45,6 @@ The following phases are **fully implemented**:
 ---
 
 ## Remaining Tasks
-
-### Phase 8: Frontend - Quote List (Partial)
-
-> Core functionality implemented, some polish items remain
-
-- [ ] **T-8.2.3** Episode dropdown filter depends on season selection (dynamic)
-
----
 
 ### Phase 14: Testing (Partial)
 
@@ -135,7 +128,6 @@ Based on impact and dependencies, recommended order:
 8. **T-15.2.4** Animations fine-tuning
 9. **T-15.2.5** Cross-browser testing
 10. **T-15.2.6** Mobile device testing
-11. **T-8.2.3** Episode dropdown dynamic filtering
 
 ---
 
@@ -152,4 +144,4 @@ This task should be tackled first because:
 ---
 
 *Plan updated: January 2026*
-*Remaining tasks: ~30*
+*Remaining tasks: ~29*
