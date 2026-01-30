@@ -2,34 +2,16 @@ import express, { type Express } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
 import { httpLogger } from "./lib/logger.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 import { sessionMiddleware } from "./middleware/sessionMiddleware.js";
 import { adminSessionMiddleware } from "./middleware/adminSessionMiddleware.js";
+import { generalLimiter } from "./middleware/rateLimiter.js";
 import { healthRouter } from "./routes/health.js";
 import { quotesRouter } from "./routes/quotes.js";
 import { votesRouter } from "./routes/votes.js";
 import { adminAuthRouter } from "./routes/admin/auth.js";
 import { adminQuotesRouter } from "./routes/admin/quotes.js";
-
-// Rate limiter for general API requests (100 requests per 15 minutes)
-const generalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 100,
-  standardHeaders: "draft-8",
-  legacyHeaders: false,
-  message: { error: "Too many requests, please try again later." },
-});
-
-// Stricter rate limiter for vote endpoint (10 votes per minute)
-export const voteLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
-  limit: 10,
-  standardHeaders: "draft-8",
-  legacyHeaders: false,
-  message: { error: "Too many votes, please try again later." },
-});
 
 export function createApp(): Express {
   const app = express();

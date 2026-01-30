@@ -2,7 +2,7 @@ import { Router } from "express";
 import { asyncHandler } from "../middleware/errorHandler.js";
 import { BadRequestError } from "../lib/errors.js";
 import { createVote } from "../services/voteService.js";
-import { voteLimiter } from "../app.js";
+import { voteLimiter } from "../middleware/rateLimiter.js";
 
 export const votesRouter = Router();
 
