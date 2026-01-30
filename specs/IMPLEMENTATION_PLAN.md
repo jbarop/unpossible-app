@@ -40,6 +40,7 @@ The following phases are **fully implemented**:
 - **Phase 11:** SEO & Meta (Meta tags, JSON-LD, robots.txt, sitemap, favicon)
 - **Phase 12:** Privacy (Cookie banner, Privacy policy page)
 - **Phase 13:** Security (Helmet, Rate limiting, CORS, Validation)
+- **Phase 14:** Testing (Unit tests, Component tests, E2E tests with axe-core accessibility)
 - **Phase 16:** Documentation (README, ARCHITECTURE.md, API.md, .env.example)
 
 ---
@@ -71,9 +72,9 @@ The following phases are **fully implemented**:
 - [x] **T-14.3.20** Write tests for useCookieConsent hook
 - [x] **T-14.3.21** Write tests for useVotedQuotes hook
 
-#### 14.4 E2E Tests (Partial)
+#### 14.4 E2E Tests (Complete)
 
-- [ ] **T-14.4.8** E2E: Accessibility tests with axe-core integration
+- [x] **T-14.4.8** E2E: Accessibility tests with axe-core integration
 
 ---
 
@@ -119,7 +120,7 @@ Based on impact and dependencies, recommended order:
 3. **T-15.1.5** Fix performance issues
 
 ### Medium Priority (Quality Assurance)
-4. **T-14.4.8** E2E accessibility tests with axe-core
+4. ~~**T-14.4.8** E2E accessibility tests with axe-core~~ (Complete)
 5. ~~**T-14.3.x** Frontend component tests~~ (Complete - 152 tests passing)
 6. **T-16.3.x** Final acceptance verification
 
@@ -144,4 +145,4 @@ This task should be tackled first because:
 ---
 
 *Plan updated: January 2026*
-*Remaining tasks: ~12*
+*Remaining tasks: ~11*
