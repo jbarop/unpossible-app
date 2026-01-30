@@ -46,30 +46,30 @@ The following phases are **fully implemented**:
 
 ## Remaining Tasks
 
-### Phase 14: Testing (Partial)
+### Phase 14: Testing (Complete)
 
-> Backend tests complete. Frontend component tests incomplete.
+> Backend and frontend tests complete.
 
-#### 14.3 Frontend Component Tests
+#### 14.3 Frontend Component Tests (Complete)
 
-- [ ] **T-14.3.4** Write tests for QuoteFilters component
-- [ ] **T-14.3.5** Write tests for useTheme hook
-- [ ] **T-14.3.6** Write tests for Layout component
-- [ ] **T-14.3.7** Write tests for Header component
-- [ ] **T-14.3.8** Write tests for Footer component
-- [ ] **T-14.3.9** Write tests for CookieBanner component
-- [ ] **T-14.3.10** Write tests for ThemeToggle component
-- [ ] **T-14.3.11** Write tests for Toast component
-- [ ] **T-14.3.12** Write tests for SkipLink component
-- [ ] **T-14.3.13** Write tests for ConfirmDialog component
-- [ ] **T-14.3.14** Write tests for QuoteForm component
-- [ ] **T-14.3.15** Write tests for QuoteModal component
-- [ ] **T-14.3.16** Write tests for AdminRoute component
-- [ ] **T-14.3.17** Write tests for ErrorBoundary component
-- [ ] **T-14.3.18** Write tests for SEO component
-- [ ] **T-14.3.19** Write tests for useAdminAuth hook
-- [ ] **T-14.3.20** Write tests for useCookieConsent hook
-- [ ] **T-14.3.21** Write tests for useVotedQuotes hook
+- [x] **T-14.3.4** ~~Write tests for QuoteFilters component~~ (N/A - filters inline in Quotes page)
+- [x] **T-14.3.5** Write tests for useTheme hook
+- [x] **T-14.3.6** Write tests for Layout component
+- [x] **T-14.3.7** Write tests for Header component
+- [x] **T-14.3.8** Write tests for Footer component
+- [x] **T-14.3.9** Write tests for CookieBanner component
+- [x] **T-14.3.10** Write tests for ThemeToggle component
+- [x] **T-14.3.11** ~~Write tests for Toast component~~ (N/A - component does not exist)
+- [x] **T-14.3.12** Write tests for SkipLink component
+- [x] **T-14.3.13** Write tests for ConfirmDialog component
+- [x] **T-14.3.14** Write tests for QuoteForm component
+- [x] **T-14.3.15** Write tests for QuoteModal component
+- [x] **T-14.3.16** Write tests for AdminRoute component
+- [x] **T-14.3.17** Write tests for ErrorBoundary component
+- [x] **T-14.3.18** Write tests for SEO component
+- [x] **T-14.3.19** Write tests for useAdminAuth hook
+- [x] **T-14.3.20** Write tests for useCookieConsent hook
+- [x] **T-14.3.21** Write tests for useVotedQuotes hook
 
 #### 14.4 E2E Tests (Partial)
 
@@ -120,7 +120,7 @@ Based on impact and dependencies, recommended order:
 
 ### Medium Priority (Quality Assurance)
 4. **T-14.4.8** E2E accessibility tests with axe-core
-5. **T-14.3.x** Frontend component tests (prioritize hooks and key components)
+5. ~~**T-14.3.x** Frontend component tests~~ (Complete - 152 tests passing)
 6. **T-16.3.x** Final acceptance verification
 
 ### Lower Priority (Polish)
@@ -144,4 +144,4 @@ This task should be tackled first because:
 ---
 
 *Plan updated: January 2026*
-*Remaining tasks: ~29*
+*Remaining tasks: ~12*
