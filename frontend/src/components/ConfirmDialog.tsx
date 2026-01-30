@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -25,6 +25,23 @@ export function ConfirmDialog({
 }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const confirmButtonRef = useRef<HTMLButtonElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsAnimating(true);
+      requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
+    } else {
+      setIsVisible(false);
+      const timer = setTimeout(() => {
+        setIsAnimating(false);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -56,7 +73,7 @@ export function ConfirmDialog({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen && !isAnimating) return null;
 
   const confirmButtonClass =
     variant === "danger"
@@ -65,7 +82,9 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-200 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
@@ -78,7 +97,9 @@ export function ConfirmDialog({
 
       <div
         ref={dialogRef}
-        className="relative bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full p-6"
+        className={`relative bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full p-6 transition-all duration-200 ${
+          isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
+        }`}
       >
         <h2
           id="confirm-dialog-title"

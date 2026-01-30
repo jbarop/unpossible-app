@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      setIsMenuVisible(true);
+    } else {
+      const timer = setTimeout(() => {
+        setIsMenuVisible(false);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isMenuOpen]);
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-lg transition-colors ${
@@ -34,7 +46,7 @@ export function Header() {
           </div>
 
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
             }}
@@ -42,10 +54,11 @@ export function Header() {
             aria-expanded={isMenuOpen}
           >
             <svg
-              className="w-6 h-6"
+              className="w-6 h-6 transition-transform duration-200"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              style={{ transform: isMenuOpen ? "rotate(90deg)" : "rotate(0)" }}
             >
               {isMenuOpen ? (
                 <path
@@ -66,8 +79,14 @@ export function Header() {
           </button>
         </div>
 
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 flex flex-col gap-2">
+        {isMenuVisible && (
+          <div
+            className={`md:hidden mt-4 flex flex-col gap-2 overflow-hidden transition-all duration-200 ${
+              isMenuOpen
+                ? "opacity-100 max-h-48"
+                : "opacity-0 max-h-0"
+            }`}
+          >
             <NavLink
               to="/"
               className={navLinkClass}
