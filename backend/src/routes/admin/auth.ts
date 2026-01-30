@@ -18,6 +18,7 @@ const loginSchema = z.object({
 adminAuthRouter.post(
   "/login",
   asyncHandler(async (req, res) => {
+    await Promise.resolve();
     const { password } = loginSchema.parse(req.body);
 
     const adminPassword = process.env["ADMIN_PASSWORD"];
@@ -39,9 +40,9 @@ adminAuthRouter.post(
   "/logout",
   asyncHandler(async (req, res) => {
     await new Promise<void>((resolve, reject) => {
-      req.session.destroy((err) => {
+      req.session.destroy((err: unknown) => {
         if (err) {
-          reject(err);
+          reject(new Error(err instanceof Error ? err.message : "Session destroy failed"));
         } else {
           resolve();
         }
@@ -56,6 +57,7 @@ adminAuthRouter.post(
 adminAuthRouter.get(
   "/me",
   asyncHandler(async (req, res) => {
+    await Promise.resolve();
     if (!req.session.isAdmin) {
       throw new UnauthorizedError("Not authenticated");
     }

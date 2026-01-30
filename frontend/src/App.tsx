@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AdminRoute } from "./components/AdminRoute";
 import { Layout } from "./components/Layout";
+import { AdminLogin } from "./pages/AdminLogin";
+import { AdminQuotes } from "./pages/AdminQuotes";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/NotFound";
 import { Privacy } from "./pages/Privacy";
@@ -15,6 +18,15 @@ export function App() {
           <Route path="quote/:id" element={<QuoteDetail />} />
           <Route path="quotes" element={<Quotes />} />
           <Route path="privacy" element={<Privacy />} />
+          <Route path="admin" element={<AdminLogin />} />
+          <Route
+            path="admin/quotes"
+            element={
+              <AdminRoute>
+                <AdminQuotes />
+              </AdminRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
