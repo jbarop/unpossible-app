@@ -6,9 +6,10 @@ interface QuoteCardProps {
   quote: QuoteWithVoted;
   onVote: () => void;
   isVoting?: boolean;
+  hasConsent?: boolean;
 }
 
-export function QuoteCard({ quote, onVote, isVoting }: QuoteCardProps) {
+export function QuoteCard({ quote, onVote, isVoting, hasConsent = true }: QuoteCardProps) {
   return (
     <article className="card max-w-2xl mx-auto">
       <blockquote className="text-2xl md:text-3xl font-heading text-center mb-6 leading-relaxed">
@@ -27,6 +28,7 @@ export function QuoteCard({ quote, onVote, isVoting }: QuoteCardProps) {
           hasVoted={quote.hasVoted}
           onVote={onVote}
           disabled={isVoting}
+          hasConsent={hasConsent}
         />
         <ShareButton quoteId={quote.id} />
       </div>

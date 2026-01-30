@@ -2,9 +2,11 @@ import type { QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { QuoteCard } from "../components/QuoteCard";
+import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
 export function QuoteDetail() {
+  const { hasConsent } = useCookieConsentContext();
   const { id } = useParams<{ id: string }>();
   const [quote, setQuote] = useState<QuoteWithVoted | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +43,7 @@ export function QuoteDetail() {
   }, [id]);
 
   const handleVote = () => {
-    if (!quote || quote.hasVoted) return;
+    if (!quote || quote.hasVoted || !hasConsent) return;
     setIsVoting(true);
     api.quotes
       .vote(quote.id)
@@ -93,7 +95,7 @@ export function QuoteDetail() {
 
   return (
     <div className="py-8">
-      <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} />
+      <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} hasConsent={hasConsent} />
 
       <div className="text-center mt-8">
         <Link to="/" className="btn-secondary">

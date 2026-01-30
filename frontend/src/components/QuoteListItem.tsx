@@ -6,9 +6,10 @@ interface QuoteListItemProps {
   quote: QuoteWithVoted;
   onVote: () => void;
   isVoting?: boolean;
+  hasConsent?: boolean;
 }
 
-export function QuoteListItem({ quote, onVote, isVoting }: QuoteListItemProps) {
+export function QuoteListItem({ quote, onVote, isVoting, hasConsent = true }: QuoteListItemProps) {
   return (
     <article className="card flex flex-col md:flex-row md:items-center gap-4">
       <Link
@@ -29,6 +30,7 @@ export function QuoteListItem({ quote, onVote, isVoting }: QuoteListItemProps) {
           hasVoted={quote.hasVoted}
           onVote={onVote}
           disabled={isVoting}
+          hasConsent={hasConsent}
         />
       </div>
     </article>

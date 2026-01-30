@@ -1,9 +1,11 @@
 import type { QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { QuoteCard } from "../components/QuoteCard";
+import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
 export function Home() {
+  const { hasConsent } = useCookieConsentContext();
   const [quote, setQuote] = useState<QuoteWithVoted | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +45,7 @@ export function Home() {
   };
 
   const handleVote = () => {
-    if (!quote || quote.hasVoted) return;
+    if (!quote || quote.hasVoted || !hasConsent) return;
     setIsVoting(true);
     api.quotes
       .vote(quote.id)
@@ -94,7 +96,7 @@ export function Home() {
     <div className="py-8">
       <h1 className="sr-only">Random Ralph Wiggum Quote</h1>
 
-      <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} />
+      <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} hasConsent={hasConsent} />
 
       <div className="text-center mt-8">
         <button

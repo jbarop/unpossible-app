@@ -3,6 +3,7 @@ interface VoteButtonProps {
   hasVoted: boolean;
   onVote: () => void;
   disabled?: boolean;
+  hasConsent?: boolean;
 }
 
 export function VoteButton({
@@ -10,17 +11,30 @@ export function VoteButton({
   hasVoted,
   onVote,
   disabled,
+  hasConsent = true,
 }: VoteButtonProps) {
+  const isDisabled = disabled ?? (hasVoted || !hasConsent);
+  const needsConsent = !hasConsent && !hasVoted;
+
+  const getAriaLabel = () => {
+    if (needsConsent) return `Voting disabled - Cookie consent required - ${String(votes)} votes`;
+    if (hasVoted) return `You voted - ${String(votes)} votes`;
+    return `Upvote - ${String(votes)} votes`;
+  };
+
   return (
     <button
       onClick={onVote}
-      disabled={disabled ?? hasVoted}
+      disabled={isDisabled}
+      title={needsConsent ? "Cookie-Zustimmung erforderlich" : undefined}
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 ${
         hasVoted
           ? "bg-simpsons-pink text-gray-900 cursor-not-allowed focus:ring-simpsons-pink"
-          : "bg-simpsons-sky hover:bg-simpsons-sky-dark text-gray-900 focus:ring-simpsons-sky"
+          : needsConsent
+            ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed focus:ring-gray-400"
+            : "bg-simpsons-sky hover:bg-simpsons-sky-dark text-gray-900 focus:ring-simpsons-sky"
       }`}
-      aria-label={hasVoted ? `You voted - ${String(votes)} votes` : `Upvote - ${String(votes)} votes`}
+      aria-label={getAriaLabel()}
     >
       <svg
         className={`w-5 h-5 ${hasVoted ? "fill-current" : ""}`}

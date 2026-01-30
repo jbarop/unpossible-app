@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminRoute } from "./components/AdminRoute";
 import { Layout } from "./components/Layout";
+import { CookieConsentProvider } from "./contexts/CookieConsentContext";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminQuotes } from "./pages/AdminQuotes";
 import { Home } from "./pages/Home";
@@ -11,9 +12,10 @@ import { Quotes } from "./pages/Quotes";
 
 export function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
+    <CookieConsentProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="quote/:id" element={<QuoteDetail />} />
           <Route path="quotes" element={<Quotes />} />
@@ -31,5 +33,6 @@ export function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+  </CookieConsentProvider>
   );
 }

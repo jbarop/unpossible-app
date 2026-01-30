@@ -2,6 +2,7 @@ import type { QuoteListParams, QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { QuoteListItem } from "../components/QuoteListItem";
+import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
 interface PaginationInfo {
@@ -12,6 +13,7 @@ interface PaginationInfo {
 }
 
 export function Quotes() {
+  const { hasConsent } = useCookieConsentContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [quotes, setQuotes] = useState<QuoteWithVoted[]>([]);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
@@ -76,7 +78,7 @@ export function Quotes() {
 
   const handleVote = (quoteId: string) => {
     const quote = quotes.find((q) => q.id === quoteId);
-    if (!quote || quote.hasVoted) return;
+    if (!quote || quote.hasVoted || !hasConsent) return;
     setVotingId(quoteId);
     api.quotes
       .vote(quoteId)
@@ -235,6 +237,7 @@ export function Quotes() {
                   handleVote(quote.id);
                 }}
                 isVoting={votingId === quote.id}
+                hasConsent={hasConsent}
               />
             ))}
           </div>
