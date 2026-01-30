@@ -9,6 +9,17 @@ import {
 
 const ADMIN_PASSWORD = process.env["ADMIN_PASSWORD"] ?? "test-password";
 
+function getCookies(headers: Record<string, unknown>): string[] {
+  const cookies = headers["set-cookie"];
+  if (Array.isArray(cookies)) {
+    return cookies;
+  }
+  if (typeof cookies === "string") {
+    return [cookies];
+  }
+  return [];
+}
+
 describe("Admin Auth Endpoints Integration Tests", () => {
   beforeAll(async () => {
     process.env["ADMIN_PASSWORD"] = ADMIN_PASSWORD;
@@ -43,7 +54,7 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .expect(200);
 
       expect(response.headers["set-cookie"]).toBeDefined();
-      const cookies = response.headers["set-cookie"];
+      const cookies = getCookies(response.headers);
       const hasAdminCookie = cookies.some((cookie: string) =>
         cookie.includes("admin.sid")
       );
@@ -87,7 +98,7 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .send({ password: ADMIN_PASSWORD })
         .expect(200);
 
-      const cookies = loginResponse.headers["set-cookie"];
+      const cookies = getCookies(loginResponse.headers);
 
       // Check auth status
       const meResponse = await request(app)
@@ -123,7 +134,7 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .send({ password: ADMIN_PASSWORD })
         .expect(200);
 
-      const cookies = loginResponse.headers["set-cookie"];
+      const cookies = getCookies(loginResponse.headers);
 
       // Logout
       const logoutResponse = await request(app)
@@ -142,7 +153,7 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .send({ password: ADMIN_PASSWORD })
         .expect(200);
 
-      const cookies = loginResponse.headers["set-cookie"];
+      const cookies = getCookies(loginResponse.headers);
 
       // Logout
       const logoutResponse = await request(app)
@@ -151,8 +162,8 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .expect(200);
 
       // Check that cookie is cleared (expires in the past or empty)
-      const setCookies = logoutResponse.headers["set-cookie"];
-      const adminCookie = setCookies?.find((c: string) =>
+      const setCookies = getCookies(logoutResponse.headers);
+      const adminCookie = setCookies.find((c: string) =>
         c.includes("admin.sid")
       );
       expect(adminCookie).toBeDefined();
@@ -165,7 +176,7 @@ describe("Admin Auth Endpoints Integration Tests", () => {
         .send({ password: ADMIN_PASSWORD })
         .expect(200);
 
-      const cookies = loginResponse.headers["set-cookie"];
+      const cookies = getCookies(loginResponse.headers);
 
       // Logout
       await request(app)

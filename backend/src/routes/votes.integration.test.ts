@@ -9,6 +9,17 @@ import {
 } from "../test/setup.js";
 import type { Quote } from "@prisma/client";
 
+function getCookies(headers: Record<string, unknown>): string[] {
+  const cookies = headers["set-cookie"];
+  if (Array.isArray(cookies)) {
+    return cookies;
+  }
+  if (typeof cookies === "string") {
+    return [cookies];
+  }
+  return [];
+}
+
 describe("Vote Endpoints Integration Tests", () => {
   let testQuotes: Quote[];
 
@@ -54,8 +65,8 @@ describe("Vote Endpoints Integration Tests", () => {
         .expect(200);
 
       // Extract session ID from cookie
-      const cookies = response.headers["set-cookie"];
-      const sessionCookie = cookies?.[0];
+      const cookies = getCookies(response.headers);
+      const sessionCookie = cookies[0];
       const sessionIdMatch = sessionCookie?.match(/unpossible_session=([^;]+)/);
       const sessionId = sessionIdMatch?.[1];
 
@@ -77,7 +88,7 @@ describe("Vote Endpoints Integration Tests", () => {
         .post(`/api/quotes/${targetQuote.id}/vote`)
         .expect(200);
 
-      const cookies = firstResponse.headers["set-cookie"];
+      const cookies = getCookies(firstResponse.headers);
 
       // Second vote with the same session
       const secondResponse = await request(app)
@@ -98,7 +109,7 @@ describe("Vote Endpoints Integration Tests", () => {
         .post(`/api/quotes/${quote1.id}/vote`)
         .expect(200);
 
-      const cookies = firstResponse.headers["set-cookie"];
+      const cookies = getCookies(firstResponse.headers);
 
       // Vote for second quote with same session
       const secondResponse = await request(app)
@@ -125,7 +136,7 @@ describe("Vote Endpoints Integration Tests", () => {
         .get(`/api/quotes/${targetQuote.id}`)
         .expect(200);
 
-      const cookies = beforeResponse.headers["set-cookie"];
+      const cookies = getCookies(beforeResponse.headers);
       expect(beforeResponse.body.data.hasVoted).toBe(false);
 
       // Vote
@@ -152,7 +163,7 @@ describe("Vote Endpoints Integration Tests", () => {
         .post(`/api/quotes/${quote1.id}/vote`)
         .expect(200);
 
-      const cookies = firstResponse.headers["set-cookie"];
+      const cookies = getCookies(firstResponse.headers);
 
       await request(app)
         .post(`/api/quotes/${quote2.id}/vote`)

@@ -9,6 +9,17 @@ import {
 } from "../test/setup.js";
 import type { Quote } from "@prisma/client";
 
+function getCookies(headers: Record<string, unknown>): string[] {
+  const cookies = headers["set-cookie"];
+  if (Array.isArray(cookies)) {
+    return cookies;
+  }
+  if (typeof cookies === "string") {
+    return [cookies];
+  }
+  return [];
+}
+
 describe("Quote Endpoints Integration Tests", () => {
   let testQuotes: Quote[];
 
@@ -46,7 +57,9 @@ describe("Quote Endpoints Integration Tests", () => {
       const response = await request(app).get("/api/quotes/random").expect(200);
 
       expect(response.headers["set-cookie"]).toBeDefined();
-      expect(response.headers["set-cookie"][0]).toContain("unpossible_session");
+      const cookies = getCookies(response.headers);
+      expect(cookies.length).toBeGreaterThan(0);
+      expect(cookies[0]).toContain("unpossible_session");
     });
 
     it("returns 404 when no quotes exist", async () => {

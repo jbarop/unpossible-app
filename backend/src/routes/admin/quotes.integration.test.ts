@@ -11,11 +11,22 @@ import type { Quote } from "@prisma/client";
 
 const ADMIN_PASSWORD = process.env["ADMIN_PASSWORD"] ?? "test-password";
 
+function getCookies(headers: Record<string, unknown>): string[] {
+  const cookies = headers["set-cookie"];
+  if (Array.isArray(cookies)) {
+    return cookies;
+  }
+  if (typeof cookies === "string") {
+    return [cookies];
+  }
+  return [];
+}
+
 async function loginAsAdmin(): Promise<string[]> {
   const response = await request(app)
     .post("/api/admin/login")
     .send({ password: ADMIN_PASSWORD });
-  return response.headers["set-cookie"];
+  return getCookies(response.headers);
 }
 
 describe("Admin Quote Management Integration Tests", () => {
