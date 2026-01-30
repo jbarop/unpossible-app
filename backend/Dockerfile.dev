@@ -24,13 +24,17 @@ COPY shared/tsconfig.json shared/
 COPY shared/src shared/src
 COPY backend/src backend/src
 COPY backend/prisma backend/prisma
+COPY backend/scripts backend/scripts
 
 WORKDIR /app/backend
 
 # Generate Prisma client
 RUN yarn prisma generate 2>/dev/null || true
 
+# Make startup script executable
+RUN chmod +x scripts/start-dev.sh
+
 EXPOSE 3000
 
-# Run with tsx for hot-reload
-CMD ["yarn", "dev"]
+# Run startup script (migrations, seed, then dev server)
+CMD ["./scripts/start-dev.sh"]
