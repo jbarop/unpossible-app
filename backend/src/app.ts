@@ -4,9 +4,12 @@ import cookieParser from "cookie-parser";
 import { httpLogger } from "./lib/logger.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 import { sessionMiddleware } from "./middleware/sessionMiddleware.js";
+import { adminSessionMiddleware } from "./middleware/adminSessionMiddleware.js";
 import { healthRouter } from "./routes/health.js";
 import { quotesRouter } from "./routes/quotes.js";
 import { votesRouter } from "./routes/votes.js";
+import { adminAuthRouter } from "./routes/admin/auth.js";
+import { adminQuotesRouter } from "./routes/admin/quotes.js";
 
 export function createApp(): Express {
   const app = express();
@@ -35,6 +38,11 @@ export function createApp(): Express {
   app.use("/api/health", healthRouter);
   app.use("/api/quotes", quotesRouter);
   app.use("/api/quotes", votesRouter);
+
+  // Admin routes with their own session store
+  app.use("/api/admin", adminSessionMiddleware);
+  app.use("/api/admin", adminAuthRouter);
+  app.use("/api/admin/quotes", adminQuotesRouter);
 
   // Error handling
   app.use(notFoundHandler);
