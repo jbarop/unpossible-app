@@ -79,6 +79,42 @@ export async function getQuoteById(id: string): Promise<Quote> {
   return toQuote(quote);
 }
 
+export interface AvailableFilters {
+  seasons: number[];
+  episodesBySeason: Record<number, number[]>;
+}
+
+export async function getAvailableFilters(): Promise<AvailableFilters> {
+  const quotes = await prisma.quote.findMany({
+    select: {
+      season: true,
+      episode: true,
+    },
+    distinct: ["season", "episode"],
+    orderBy: [{ season: "asc" }, { episode: "asc" }],
+  });
+
+  const episodesBySeason: Record<number, number[]> = {};
+  const seasonsSet = new Set<number>();
+
+  for (const quote of quotes) {
+    seasonsSet.add(quote.season);
+    episodesBySeason[quote.season] ??= [];
+    const episodes = episodesBySeason[quote.season];
+    if (episodes && !episodes.includes(quote.episode)) {
+      episodes.push(quote.episode);
+    }
+  }
+
+  const seasons = Array.from(seasonsSet).sort((a, b) => a - b);
+
+  for (const season of seasons) {
+    episodesBySeason[season]?.sort((a, b) => a - b);
+  }
+
+  return { seasons, episodesBySeason };
+}
+
 export async function getQuotes(
   filters: QuoteFilters = {},
   pagination: QuotePagination = { page: 1, limit: DEFAULT_PAGE_SIZE },

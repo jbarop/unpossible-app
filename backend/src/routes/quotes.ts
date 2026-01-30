@@ -6,6 +6,7 @@ import {
   getRandomQuote,
   getQuoteById,
   getQuotes,
+  getAvailableFilters,
   type QuoteSort,
 } from "../services/quoteService.js";
 import { getVotedQuoteIds, hasVoted } from "../services/voteService.js";
@@ -40,6 +41,14 @@ quotesRouter.get(
         hasVoted: voted,
       },
     });
+  })
+);
+
+quotesRouter.get(
+  "/filters",
+  asyncHandler(async (_req, res) => {
+    const filters = await getAvailableFilters();
+    res.json({ data: filters });
   })
 );
 

@@ -1,4 +1,8 @@
-import type { QuoteListParams, QuoteWithVoted } from "@unpossible/shared";
+import type {
+  QuoteFiltersResponse,
+  QuoteListParams,
+  QuoteWithVoted,
+} from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { QuoteListItem } from "../components/QuoteListItem";
@@ -22,6 +26,8 @@ export function Quotes() {
   const [error, setError] = useState<string | null>(null);
   const [votingId, setVotingId] = useState<string | null>(null);
   const [fetchTrigger, setFetchTrigger] = useState(0);
+  const [availableFilters, setAvailableFilters] =
+    useState<QuoteFiltersResponse | null>(null);
 
   const seasonParam = searchParams.get("season");
   const season = seasonParam ? Number(seasonParam) : undefined;
@@ -34,6 +40,17 @@ export function Quotes() {
       : undefined;
   const pageParam = searchParams.get("page");
   const page = pageParam ? Number(pageParam) : 1;
+
+  useEffect(() => {
+    api.quotes
+      .getFilters()
+      .then((response) => {
+        setAvailableFilters(response.data);
+      })
+      .catch(() => {
+        // Silently fail - filters will fall back to empty
+      });
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -113,9 +130,28 @@ export function Quotes() {
     setSearchParams(newParams);
   };
 
+  const handleSeasonChange = (value: string | null) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value) {
+      newParams.set("season", value);
+    } else {
+      newParams.delete("season");
+    }
+    // Reset episode when season changes
+    newParams.delete("episode");
+    newParams.delete("page");
+    setSearchParams(newParams);
+  };
+
   const handleReset = () => {
     setSearchParams(new URLSearchParams());
   };
+
+  const availableSeasons = availableFilters?.seasons ?? [];
+  const availableEpisodes =
+    season && availableFilters?.episodesBySeason[season]
+      ? availableFilters.episodesBySeason[season]
+      : [];
 
   return (
     <div className="py-8">
@@ -141,12 +177,12 @@ export function Quotes() {
               id="season-filter"
               value={season ?? ""}
               onChange={(e) => {
-                updateParams("season", e.target.value || null);
+                handleSeasonChange(e.target.value || null);
               }}
               className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-[var(--color-bg-primary)] focus:outline-none focus:ring-2 focus:ring-simpsons-yellow"
             >
               <option value="">All Seasons</option>
-              {Array.from({ length: 35 }, (_, i) => i + 1).map((s) => (
+              {availableSeasons.map((s) => (
                 <option key={s} value={s}>
                   Season {s}
                 </option>
@@ -167,10 +203,13 @@ export function Quotes() {
               onChange={(e) => {
                 updateParams("episode", e.target.value || null);
               }}
-              className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-[var(--color-bg-primary)] focus:outline-none focus:ring-2 focus:ring-simpsons-yellow"
+              disabled={!season}
+              className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-[var(--color-bg-primary)] focus:outline-none focus:ring-2 focus:ring-simpsons-yellow disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <option value="">All Episodes</option>
-              {Array.from({ length: 25 }, (_, i) => i + 1).map((ep) => (
+              <option value="">
+                {season ? "All Episodes" : "Select a season first"}
+              </option>
+              {availableEpisodes.map((ep) => (
                 <option key={ep} value={ep}>
                   Episode {ep}
                 </option>

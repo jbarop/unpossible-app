@@ -36,3 +36,8 @@ export interface VoteResponse {
   success: boolean;
   votes: number;
 }
+
+export interface QuoteFiltersResponse {
+  seasons: number[];
+  episodesBySeason: Record<number, number[]>;
+}

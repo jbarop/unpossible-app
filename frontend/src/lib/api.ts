@@ -1,6 +1,7 @@
 import type {
   ApiResponse,
   PaginatedResponse,
+  QuoteFiltersResponse,
   QuoteListParams,
   QuoteWithVoted,
   VoteResponse,
@@ -88,5 +89,8 @@ export const api = {
       fetchJson<VoteResponse>(`${API_BASE}/quotes/${id}/vote`, {
         method: "POST",
       }),
+
+    getFilters: () =>
+      fetchJson<ApiResponse<QuoteFiltersResponse>>(`${API_BASE}/quotes/filters`),
   },
 };
