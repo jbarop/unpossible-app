@@ -217,4 +217,44 @@ describe("Quote Endpoints Integration Tests", () => {
       });
     });
   });
+
+  describe("GET /api/quotes/filters", () => {
+    it("returns available seasons from quotes in database", async () => {
+      const response = await request(app)
+        .get("/api/quotes/filters")
+        .expect(200)
+        .expect("Content-Type", /json/);
+
+      expect(response.body.data).toBeDefined();
+      expect(response.body.data.seasons).toBeDefined();
+      expect(Array.isArray(response.body.data.seasons)).toBe(true);
+      // Test quotes have seasons 3, 5, 6, 7, 9
+      expect(response.body.data.seasons).toEqual([3, 5, 6, 7, 9]);
+    });
+
+    it("returns episodes grouped by season", async () => {
+      const response = await request(app)
+        .get("/api/quotes/filters")
+        .expect(200);
+
+      expect(response.body.data.episodesBySeason).toBeDefined();
+      // Season 3 has episode 22, Season 5 has episode 12, etc.
+      expect(response.body.data.episodesBySeason[3]).toEqual([22]);
+      expect(response.body.data.episodesBySeason[5]).toEqual([12]);
+      expect(response.body.data.episodesBySeason[6]).toEqual([8]);
+      expect(response.body.data.episodesBySeason[7]).toEqual([21]);
+      expect(response.body.data.episodesBySeason[9]).toEqual([14]);
+    });
+
+    it("returns empty arrays when no quotes exist", async () => {
+      await cleanupDatabase();
+
+      const response = await request(app)
+        .get("/api/quotes/filters")
+        .expect(200);
+
+      expect(response.body.data.seasons).toEqual([]);
+      expect(response.body.data.episodesBySeason).toEqual({});
+    });
+  });
 });
