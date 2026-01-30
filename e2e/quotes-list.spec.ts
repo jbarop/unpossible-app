@@ -30,11 +30,15 @@ test.describe('Quote List Page', () => {
   });
 
   test('can filter by episode', async ({ page }) => {
-    // Select episode 5
-    await page.selectOption('#episode-filter', '5');
+    // First select a season (episode filter requires season)
+    await page.selectOption('#season-filter', '5');
+    await page.waitForLoadState('networkidle');
+
+    // Now select episode 6 (which exists in season 5)
+    await page.selectOption('#episode-filter', '6');
 
     // URL should update
-    await expect(page).toHaveURL(/episode=5/);
+    await expect(page).toHaveURL(/episode=6/);
   });
 
   test('can sort by votes descending', async ({ page }) => {
@@ -54,13 +58,14 @@ test.describe('Quote List Page', () => {
   });
 
   test('can combine filters', async ({ page }) => {
-    // Select season 4 and episode 10
+    // Select season 4 and episode 15 (the episode that exists in season 4)
     await page.selectOption('#season-filter', '4');
-    await page.selectOption('#episode-filter', '10');
+    await page.waitForLoadState('networkidle');
+    await page.selectOption('#episode-filter', '15');
 
     // URL should have both
     await expect(page).toHaveURL(/season=4/);
-    await expect(page).toHaveURL(/episode=10/);
+    await expect(page).toHaveURL(/episode=15/);
   });
 
   test('can reset filters', async ({ page }) => {

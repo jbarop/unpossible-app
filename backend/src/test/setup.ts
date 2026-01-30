@@ -12,7 +12,10 @@ export async function setupTestApp() {
 export async function cleanupDatabase() {
   await prisma.vote.deleteMany();
   await prisma.quote.deleteMany();
-  await prisma.adminSession.deleteMany();
+  // Note: We don't delete admin_sessions here because:
+  // 1. Each test logs in fresh and gets new cookies
+  // 2. The pg-simple session store uses a separate pool which can cause race conditions
+  // 3. Sessions expire naturally or are cleaned up in afterAll
 }
 
 export async function seedTestQuotes() {

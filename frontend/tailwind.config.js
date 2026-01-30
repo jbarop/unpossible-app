@@ -8,6 +8,7 @@ export default {
         simpsons: {
           yellow: "#FFD90F",
           "yellow-dark": "#E6C30E",
+          "yellow-text": "#B8860B", // Darker yellow for text (3:1 contrast on white)
           sky: "#70D1F4",
           "sky-dark": "#5BBAD8",
           pink: "#F7A6C1",

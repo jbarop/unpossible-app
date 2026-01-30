@@ -38,8 +38,13 @@ export function SEO({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
 
-      {/* Canonical URL */}
-      {canonicalPath && <link rel="canonical" href={canonicalPath} />}
+      {/* Canonical URL - use absolute URL */}
+      {canonicalPath && (
+        <link
+          rel="canonical"
+          href={`${window.location.origin}${canonicalPath}`}
+        />
+      )}
 
       {/* Robots */}
       {noIndex && <meta name="robots" content="noindex, nofollow" />}

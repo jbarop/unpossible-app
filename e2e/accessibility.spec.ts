@@ -153,8 +153,9 @@ test.describe('Accessibility', () => {
       await page.goto('/');
       await page.waitForLoadState('networkidle');
 
+      // Only check WCAG 2 AA color contrast (not AAA which is stricter)
       const results = await new AxeBuilder({ page })
-        .withTags(['cat.color'])
+        .withRules(['color-contrast'])
         .analyze();
 
       expect(results.violations).toEqual([]);

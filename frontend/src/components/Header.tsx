@@ -30,7 +30,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="text-2xl font-heading font-bold text-simpsons-yellow hover:text-simpsons-yellow-dark transition-colors"
+            className="text-2xl font-heading font-bold text-simpsons-yellow-text hover:text-simpsons-orange transition-colors"
           >
             Umpossible
           </Link>

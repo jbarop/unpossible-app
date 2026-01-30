@@ -19,6 +19,14 @@ test.describe('Navigation', () => {
   test('can navigate to privacy page', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
+
+    // Dismiss cookie banner if visible (it overlays the footer)
+    const cookieBanner = page.getByRole('dialog');
+    if (await cookieBanner.isVisible()) {
+      await page.getByRole('button', { name: 'Ablehnen' }).click();
+      await page.waitForLoadState('networkidle');
+    }
+
     // Privacy link is in the footer
     await page.getByRole('link', { name: /privacy|datenschutz/i }).click();
     await expect(page).toHaveURL('/privacy');
