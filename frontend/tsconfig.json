@@ -7,7 +7,7 @@
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "outDir": "./dist",
-    "types": []
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src/**/*", "vite.config.ts", "tailwind.config.js", "postcss.config.js"]
 }
