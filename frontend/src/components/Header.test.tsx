@@ -77,7 +77,9 @@ describe("Header", () => {
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
 
     const mobileLinks = screen.getAllByRole("link", { name: "Home" });
-    fireEvent.click(mobileLinks[1]);
+    const mobileLink = mobileLinks[1];
+    if (!mobileLink) throw new Error("Mobile link not found");
+    fireEvent.click(mobileLink);
 
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
   });
