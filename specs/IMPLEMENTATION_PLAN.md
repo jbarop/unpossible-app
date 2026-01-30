@@ -49,14 +49,19 @@ The following phases are **fully implemented**:
 
 ### Phase 15: Performance & Polishing
 
-> Not yet started
+> 15.1 Performance complete
 
-#### 15.1 Performance
+#### 15.1 Performance (Complete)
 
-- [ ] **T-15.1.1** Analyze bundle size with vite-plugin-visualizer
-- [ ] **T-15.1.2** Add code-splitting for admin routes (lazy loading)
-- [ ] **T-15.1.4** Run Lighthouse audit
-- [ ] **T-15.1.5** Fix performance issues until Lighthouse score > 90
+- [x] **T-15.1.1** Analyze bundle size with rollup-plugin-visualizer
+- [x] **T-15.1.2** Add code-splitting for admin routes (lazy loading)
+- [x] **T-15.1.4** Run Lighthouse audit
+- [x] **T-15.1.5** Fix performance issues until Lighthouse score > 90
+
+Bundle sizes achieved:
+- Main bundle (index.js): 46 KB gzipped → 14.6 KB
+- Vendor bundle: 179 KB gzipped → 58.9 KB
+- Admin routes lazy-loaded separately (AdminLogin: 1.4 KB, AdminQuotes: 3.5 KB gzipped)
 
 #### 15.2 Final Polish
 
@@ -84,32 +89,26 @@ The following phases are **fully implemented**:
 Based on impact and dependencies, recommended order:
 
 ### High Priority (Core Functionality)
-1. **T-15.1.2** Code-splitting for admin routes - improves bundle size
-2. **T-15.1.4** Lighthouse audit - identifies issues
-3. **T-15.1.5** Fix performance issues
+1. ~~**T-15.1.x** Performance optimization~~ (Complete)
 
 ### Medium Priority (Quality Assurance)
-4. **T-16.3.x** Final acceptance verification
+2. **T-16.3.x** Final acceptance verification
 
 ### Lower Priority (Polish)
-7. **T-15.2.1** Loading skeletons
-8. **T-15.2.4** Animations fine-tuning
-9. **T-15.2.5** Cross-browser testing
-10. **T-15.2.6** Mobile device testing
+3. **T-15.2.1** Loading skeletons
+4. **T-15.2.4** Animations fine-tuning
+5. **T-15.2.5** Cross-browser testing
+6. **T-15.2.6** Mobile device testing
 
 ---
 
 ## Most Important Next Step
 
-**T-15.1.2: Add code-splitting for admin routes**
+**T-16.3.x: Final acceptance verification**
 
-This task should be tackled first because:
-1. Reduces initial bundle size for regular users
-2. Admin routes are not needed for most visitors
-3. Easy to implement with React.lazy()
-4. Directly impacts NFA-PERF-01 (bundle < 150 KB)
+Verify all functional and non-functional requirements are met.
 
 ---
 
 *Plan updated: January 30, 2026*
-*Remaining tasks: ~9*
+*Remaining tasks: ~8*
