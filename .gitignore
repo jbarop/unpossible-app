@@ -37,6 +37,10 @@ logs/
 # Test coverage
 coverage/
 
+# Playwright
+playwright-report/
+test-results/
+
 # Prisma
 backend/prisma/*.db
 backend/prisma/*.db-journal
