@@ -2,6 +2,7 @@ import type { QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { QuoteCard } from "../components/QuoteCard";
+import { SEO } from "../components/SEO";
 import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
@@ -93,8 +94,16 @@ export function QuoteDetail() {
     );
   }
 
+  const truncatedText =
+    quote.text.length > 60 ? `${quote.text.slice(0, 60)}...` : quote.text;
+
   return (
     <div className="py-8">
+      <SEO
+        title={truncatedText}
+        description={`Ralph Wiggum quote from Season ${String(quote.season)}, Episode ${String(quote.episode)}: "${quote.text}"`}
+        canonicalPath={`/quote/${quote.id}`}
+      />
       <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} hasConsent={hasConsent} />
 
       <div className="text-center mt-8">

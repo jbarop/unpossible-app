@@ -2,6 +2,7 @@ import type { QuoteListParams, QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { QuoteListItem } from "../components/QuoteListItem";
+import { SEO } from "../components/SEO";
 import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
@@ -118,6 +119,11 @@ export function Quotes() {
 
   return (
     <div className="py-8">
+      <SEO
+        title="All Quotes"
+        description="Browse all Ralph Wiggum quotes from The Simpsons. Filter by season and episode, sort by votes."
+        canonicalPath="/quotes"
+      />
       <h1 className="text-3xl font-heading font-bold mb-8 text-center">
         All Ralph Wiggum Quotes
       </h1>

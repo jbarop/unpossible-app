@@ -1,6 +1,7 @@
 import type { QuoteWithVoted } from "@unpossible/shared";
 import { useEffect, useState } from "react";
 import { QuoteCard } from "../components/QuoteCard";
+import { SEO } from "../components/SEO";
 import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
@@ -94,6 +95,7 @@ export function Home() {
 
   return (
     <div className="py-8">
+      <SEO canonicalPath="/" />
       <h1 className="sr-only">Random Ralph Wiggum Quote</h1>
 
       <QuoteCard quote={quote} onVote={handleVote} isVoting={isVoting} hasConsent={hasConsent} />

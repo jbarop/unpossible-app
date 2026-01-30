@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { SEO } from "../components/SEO";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 
 interface LocationState {
@@ -52,6 +53,7 @@ export function AdminLogin() {
 
   return (
     <div className="max-w-md mx-auto py-12">
+      <SEO title="Admin Login" noIndex />
       <h1 className="text-3xl font-heading font-bold text-center mb-8">
         Admin Login
       </h1>

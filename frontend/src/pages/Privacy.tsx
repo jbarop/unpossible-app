@@ -1,6 +1,13 @@
+import { SEO } from "../components/SEO";
+
 export function Privacy() {
   return (
     <div className="py-8 max-w-3xl mx-auto">
+      <SEO
+        title="Datenschutzerklärung"
+        description="Datenschutzerklärung für Umpossible - Informationen zur Datenverarbeitung und Ihren Rechten."
+        canonicalPath="/privacy"
+      />
       <h1 className="text-3xl font-heading font-bold mb-8">
         Datenschutzerklärung
       </h1>

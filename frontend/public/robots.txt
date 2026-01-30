@@ -1,0 +1,10 @@
+# Umpossible - Ralph Wiggum Quotes
+# https://github.com/user/umpossible
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: /sitemap.xml

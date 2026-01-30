@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { QuoteModal } from "../components/QuoteModal";
 import type { QuoteFormData } from "../components/QuoteForm";
+import { SEO } from "../components/SEO";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 
 interface PaginatedQuotes {
@@ -161,6 +162,7 @@ export function AdminQuotes() {
 
   return (
     <div className="py-8">
+      <SEO title="Quote Management" noIndex />
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-heading font-bold">Quote Management</h1>
         <div className="flex gap-3">
