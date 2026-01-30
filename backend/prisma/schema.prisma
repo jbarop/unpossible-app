@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Quote {
+  id        String   @id @default(uuid())
+  text      String
+  season    Int
+  episode   Int
+  votes     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  voteRecords Vote[]
+
+  @@index([votes])
+  @@index([season])
+  @@index([season, episode])
+  @@map("quotes")
+}
+
+model Vote {
+  id        String   @id @default(uuid())
+  quoteId   String   @map("quote_id")
+  sessionId String   @map("session_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  @@unique([quoteId, sessionId])
+  @@index([sessionId])
+  @@map("votes")
+}

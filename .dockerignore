@@ -1,0 +1,15 @@
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+.gitignore
+*.md
+.env
+.env.local
+.DS_Store
+**/.DS_Store
+coverage
+**/coverage
+.nyc_output
+**/.nyc_output

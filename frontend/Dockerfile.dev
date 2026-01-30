@@ -1,0 +1,35 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Enable corepack for yarn
+RUN corepack enable
+
+# Copy package files first for better caching
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn .yarn
+COPY backend/package.json backend/
+COPY shared/package.json shared/
+COPY frontend/package.json frontend/
+
+# Install dependencies
+RUN yarn install
+
+# Copy TypeScript configs
+COPY tsconfig.json ./
+COPY frontend/tsconfig.json frontend/
+COPY shared/tsconfig.json shared/
+
+# Copy source code
+COPY shared/src shared/src
+COPY frontend/src frontend/src
+COPY frontend/public frontend/public
+COPY frontend/index.html frontend/
+COPY frontend/vite.config.ts frontend/
+
+WORKDIR /app/frontend
+
+EXPOSE 5173
+
+# Run Vite dev server with host binding for Docker
+CMD ["yarn", "dev", "--host", "0.0.0.0"]
