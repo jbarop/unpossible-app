@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg-primary: #ffffff;
+    --color-bg-secondary: #f9fafb;
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #4b5563;
+  }
+
+  .dark {
+    --color-bg-primary: #1f2937;
+    --color-bg-secondary: #111827;
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #d1d5db;
+  }
+
+  body {
+    @apply bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] font-body antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-simpsons-yellow hover:bg-simpsons-yellow-dark text-gray-900 font-semibold py-2 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-simpsons-yellow focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-simpsons-sky hover:bg-simpsons-sky-dark text-gray-900 font-semibold py-2 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-simpsons-sky focus:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-[var(--color-bg-secondary)] rounded-xl shadow-lg p-6;
+  }
+}

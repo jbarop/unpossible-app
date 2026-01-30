@@ -12,6 +12,8 @@ export default tseslint.config(
       "**/node_modules/**",
       "**/.yarn/**",
       "eslint.config.js",
+      "frontend/tailwind.config.js",
+      "frontend/postcss.config.js",
     ],
   },
   js.configs.recommended,
