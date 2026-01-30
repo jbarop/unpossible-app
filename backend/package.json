@@ -13,7 +13,7 @@
     "prisma": "prisma",
     "db:seed": "tsx prisma/seed.ts"
   },
-    "dependencies": {
+  "dependencies": {
     "@prisma/client": "^6.3.1",
     "@unpossible/shared": "workspace:*",
     "cookie-parser": "^1.4.7",
