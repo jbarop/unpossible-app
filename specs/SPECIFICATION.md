@@ -159,6 +159,18 @@
 | NFA-LOG-04 | Error-Logging mit Stack Traces |
 | NFA-LOG-05 | Keine sensiblen Daten in Logs |
 
+### 4.7 Dokumentation
+
+| ID | Anforderung |
+|----|-------------|
+| NFA-DOC-01 | README.md mit Projektübersicht und Setup-Anleitung |
+| NFA-DOC-02 | Architektur-Dokumentation (Ordnerstruktur, Komponenten-Übersicht) |
+| NFA-DOC-03 | API-Dokumentation (Endpoints, Request/Response Beispiele) |
+| NFA-DOC-04 | JSDoc-Kommentare für alle öffentlichen Funktionen und Services |
+| NFA-DOC-05 | TypeScript-Interfaces mit beschreibenden Kommentaren |
+| NFA-DOC-06 | Inline-Kommentare für komplexe Logik |
+| NFA-DOC-07 | Environment Variables dokumentiert in `.env.example` |
+
 ---
 
 ## 5. Design

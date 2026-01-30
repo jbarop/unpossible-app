@@ -538,19 +538,33 @@
 
 ## Phase 16: Dokumentation & Abschluss
 
-### 16.1 Dokumentation
+### 16.1 Projekt-Dokumentation
 
-- [ ] **T-16.1.1** README.md mit Setup-Anleitung
-- [ ] **T-16.1.2** CONTRIBUTING.md (falls Open Source)
-- [ ] **T-16.1.3** Environment Variables dokumentieren
+- [ ] **T-16.1.1** `README.md` - Projektübersicht, Features, Screenshots
+- [ ] **T-16.1.2** `README.md` - Setup-Anleitung (Prerequisites, Installation, Start)
+- [ ] **T-16.1.3** `README.md` - Verfügbare Scripts (dev, test, lint, etc.)
+- [ ] **T-16.1.4** `docs/ARCHITECTURE.md` - Ordnerstruktur mit Beschreibungen
+- [ ] **T-16.1.5** `docs/ARCHITECTURE.md` - Komponenten-Übersicht (Frontend)
+- [ ] **T-16.1.6** `docs/ARCHITECTURE.md` - Service-Übersicht (Backend)
+- [ ] **T-16.1.7** `docs/API.md` - Alle Endpoints mit Request/Response Beispielen
+- [ ] **T-16.1.8** `.env.example` - Alle Variablen mit Beschreibung kommentiert
 
-### 16.2 Abnahme
+### 16.2 Code-Dokumentation
 
-- [ ] **T-16.2.1** Alle funktionalen Anforderungen (F-*) prüfen
-- [ ] **T-16.2.2** Alle nicht-funktionalen Anforderungen (NFA-*) prüfen
-- [ ] **T-16.2.3** Lighthouse Score > 90 verifizieren
-- [ ] **T-16.2.4** docker-compose up startet erfolgreich
-- [ ] **T-16.2.5** Seed-Daten sind geladen
+- [ ] **T-16.2.1** JSDoc für alle Service-Funktionen (Backend)
+- [ ] **T-16.2.2** JSDoc für alle Custom Hooks (Frontend)
+- [ ] **T-16.2.3** JSDoc für alle Utility-Funktionen
+- [ ] **T-16.2.4** TypeScript-Interfaces mit `/** */` Kommentaren
+- [ ] **T-16.2.5** Inline-Kommentare für komplexe Algorithmen/Logik
+- [ ] **T-16.2.6** README.md in `/shared` - Beschreibung der shared Types
+
+### 16.3 Abnahme
+
+- [ ] **T-16.3.1** Alle funktionalen Anforderungen (F-*) prüfen
+- [ ] **T-16.3.2** Alle nicht-funktionalen Anforderungen (NFA-*) prüfen
+- [ ] **T-16.3.3** Lighthouse Score > 90 verifizieren
+- [ ] **T-16.3.4** docker-compose up startet erfolgreich
+- [ ] **T-16.3.5** Seed-Daten sind geladen
 
 ---
 
