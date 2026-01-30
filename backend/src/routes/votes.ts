@@ -2,6 +2,7 @@ import { Router } from "express";
 import { asyncHandler } from "../middleware/errorHandler.js";
 import { BadRequestError } from "../lib/errors.js";
 import { createVote } from "../services/voteService.js";
+import { voteLimiter } from "../app.js";
 
 export const votesRouter = Router();
 
@@ -14,6 +15,7 @@ function extractId(param: string | string[] | undefined): string {
 
 votesRouter.post(
   "/:id/vote",
+  voteLimiter,
   asyncHandler(async (req, res) => {
     const quoteId = extractId(req.params["id"]);
     const sessionId = req.sessionId;
