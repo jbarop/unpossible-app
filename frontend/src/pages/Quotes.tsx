@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { QuoteListItem } from "../components/QuoteListItem";
 import { SEO } from "../components/SEO";
+import { QuoteListSkeleton } from "../components/Skeleton";
 import { useCookieConsentContext } from "../contexts/CookieConsentContext";
 import { api } from "../lib/api";
 
@@ -250,14 +251,7 @@ export function Quotes() {
       </div>
 
       {loading ? (
-        <div className="space-y-4">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="card animate-pulse">
-              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4" />
-            </div>
-          ))}
-        </div>
+        <QuoteListSkeleton count={5} />
       ) : error ? (
         <div className="text-center py-12">
           <p className="text-red-500 mb-4">{error}</p>
