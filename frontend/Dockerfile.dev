@@ -26,6 +26,8 @@ COPY frontend/src frontend/src
 COPY frontend/public frontend/public
 COPY frontend/index.html frontend/
 COPY frontend/vite.config.ts frontend/
+COPY frontend/postcss.config.js frontend/
+COPY frontend/tailwind.config.js frontend/
 
 WORKDIR /app/frontend
 
